@@ -17,6 +17,7 @@ import {
 import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, ReferenceLine, XAxis, YAxis } from 'recharts';
 import { api, Form, FormResponse, Question } from '../../utils/api';
 import { hasResultsAccess } from '../../utils/adminAccess';
+import { createAppUrl } from '../../utils/appUrl';
 import { getScaleLabel, isIconScaleType } from '../../utils/iconScale';
 import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
@@ -140,7 +141,7 @@ export function ResultsPage() {
       return;
     }
 
-    navigator.clipboard.writeText(`${window.location.origin}/form/${formId}`);
+    navigator.clipboard.writeText(createAppUrl(`/form/${formId}`));
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };

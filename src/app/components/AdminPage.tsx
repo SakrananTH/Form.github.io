@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api, Form, Question } from '../../utils/api';
 import { grantResultsAccess, revokeResultsAccess } from '../../utils/adminAccess';
+import { createAppUrl } from '../../utils/appUrl';
 import { getScaleLabel, ICON_SCALE_OPTIONS, isIconScaleType } from '../../utils/iconScale';
 import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
@@ -141,7 +142,7 @@ export function AdminPage() {
 
   const questionCount = questions.length;
   const requiredCount = questions.filter((question) => question.required !== false).length;
-  const publicFormLink = createdFormId ? `${window.location.origin}/form/${createdFormId}` : '';
+  const publicFormLink = createdFormId ? createAppUrl(`/form/${createdFormId}`) : '';
   const previewQuestions = questions.slice(0, 4);
 
   const loadFormHistory = async () => {
@@ -385,7 +386,7 @@ export function AdminPage() {
 
   const copyLink = () => {
     if (createdFormId) {
-      const link = `${window.location.origin}/form/${createdFormId}`;
+      const link = createAppUrl(`/form/${createdFormId}`);
       navigator.clipboard.writeText(link);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
@@ -393,7 +394,7 @@ export function AdminPage() {
   };
 
   const copyHistoryLink = (formId: string) => {
-    const link = `${window.location.origin}/form/${formId}`;
+    const link = createAppUrl(`/form/${formId}`);
     navigator.clipboard.writeText(link);
     setCopiedFormId(formId);
     setTimeout(() => setCopiedFormId((current) => (current === formId ? null : current)), 2000);
